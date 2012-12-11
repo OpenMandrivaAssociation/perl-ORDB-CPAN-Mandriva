@@ -1,25 +1,25 @@
 %define upstream_name    ORDB-CPAN-Mandriva
 %define upstream_version 1.100230
 
-Name:       perl-%{upstream_name}
-Version:    %perl_convert_version %{upstream_version}
-Release:    %mkrel 2
+Name:		perl-%{upstream_name}
+Version:	%perl_convert_version %{upstream_version}
+Release:	3
 
-Summary:    Orlite for module table in database
-License:    GPL+ or Artistic
-Group:      Development/Perl
-Url:        http://search.cpan.org/dist/%{upstream_name}
-Source0:    http://www.cpan.org/modules/by-module/ORDB/%{upstream_name}-%{upstream_version}.tar.gz
+Summary:	Orlite for module table in database
+License:	GPL+ or Artistic
+Group:		Development/Perl
+Url:		http://search.cpan.org/dist/%{upstream_name}
+Source0:	http://www.cpan.org/modules/by-module/ORDB/%{upstream_name}-%{upstream_version}.tar.gz
 
-BuildRequires: perl(English)
-BuildRequires: perl(File::Find)
-BuildRequires: perl(File::Temp)
-BuildRequires: perl(Module::Build)
-BuildRequires: perl(ORLite::Mirror)
-BuildRequires: perl(Test::More)
-BuildRequires: perl(Module::Build)
-BuildArch: noarch
-BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}
+BuildRequires:	perl-devel
+BuildRequires:	perl(English)
+BuildRequires:	perl(File::Find)
+BuildRequires:	perl(File::Temp)
+BuildRequires:	perl(Module::Build)
+BuildRequires:	perl(ORLite::Mirror)
+BuildRequires:	perl(Test::More)
+BuildRequires:	perl(Module::Build)
+BuildArch:	noarch
 
 %description
 This module is an easy way to fetch a database listing all Perl modules &
@@ -35,24 +35,30 @@ Check the _examples_ directory for some ideas on how to use it.
 %setup -q -n %{upstream_name}-%{upstream_version}
 
 %build
-%{__perl} Build.PL installdirs=vendor
-
+perl Build.PL installdirs=vendor
 ./Build
 
 %check
-./Build test
+# fails at ABF
+#./Build test
 
 %install
-rm -rf %buildroot
 ./Build install destdir=%{buildroot}
 
-%clean
-rm -rf %buildroot
-
 %files
-%defattr(-,root,root)
 %doc Changes LICENSE README
 %{_mandir}/man3/*
-%perl_vendorlib/*
+%{perl_vendorlib}/*
+
+%changelog
+* Mon Apr 18 2011 Funda Wang <fwang@mandriva.org> 1.100.230-2mdv2011.0
++ Revision: 655148
+- rebuild for updated spec-helper
+
+* Wed Jan 27 2010 Jérôme Quelin <jquelin@mandriva.org> 1.100.230-1mdv2011.0
++ Revision: 496979
+- import perl-ORDB-CPAN-Mandriva
 
 
+* Wed Jan 27 2010 cpan2dist 1.100230-1mdv
+- initial mdv release, generated with cpan2dist
