@@ -1,15 +1,13 @@
 %define upstream_name    ORDB-CPAN-Mandriva
-%define upstream_version 1.100230
-
 Name:		perl-%{upstream_name}
-Version:	%{upstream_version}
-Release:	6
+Version:	1.100230
+Release:	7
 
 Summary:	Orlite for module table in database
 License:	GPL+ or Artistic
 Group:		Development/Perl
 Url:		https://metacpan.org/dist/ORDB-CPAN-Mandriva
-Source0:	http://www.cpan.org/modules/by-module/ORDB/%{upstream_name}-%{upstream_version}.tar.gz
+Source0:	http://www.cpan.org/modules/by-module/ORDB/%{upstream_name}-%{version}.tar.gz
 
 BuildRequires:	perl-devel
 BuildRequires:	perl(English)
@@ -32,7 +30,7 @@ you want with the data itself.
 Check the _examples_ directory for some ideas on how to use it.
 
 %prep
-%setup -q -n %{upstream_name}-%{upstream_version}
+%setup -q -n %{upstream_name}-%{version}
 
 %build
 perl Build.PL installdirs=vendor
